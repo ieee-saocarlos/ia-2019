@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 unidades = ("zero", "um", "dois", "três", "quatro",
             "cinco", "seis", "sete", "oito", "nove")
 dezavinte = ("dez", "onze", "doze", "treze", "quatorze",
@@ -10,7 +9,6 @@ dezenas = ("dez", "vinte", "trinta", "quarenta", "cinquenta",
 
 centenas = ("cento", "duzentos", "trezentos", "quatrocento", "quinhentos",
             "seiscentos", "setecentos", "oitocentos", "novecentos")
-
 
 valordigitadozfill = input('Digite um numero de zero ate 1000: ', )
 while valordigitadozfill > 1000 :
@@ -42,24 +40,28 @@ for contador in range(valordigitadoint + 1):
             if unidadedigitada == 0:
                 resultado = dezenas[dezenadigitada - 1]
                 print(resultado)
-            elif 0 < unidadedigitada <= 9:
+            elif 1 <= unidadedigitada <= 9:
                 resultado = dezenas[dezenadigitada - 1] + 'e' + unidades[unidadedigitada]
                 print(resultado)
     elif 1 <= centenadigitada <= 9:
         if dezenadigitada == 0:
-            if valordigitado == 100:
+            if unidadedigitada == 0:
                 resultado = 'cem'
                 print (resultado)
-            elif 2 <= unidadedigitada <= 9:
+            elif 1 <= unidadedigitada <= 9:
                 resultado = centenas[centenadigitada - 1] + 'e' + unidades[unidadedigitada]
-            print (resultado)
+                print (resultado)
         elif dezenadigitada == 1:
             resultado = centenas[centenadigitada - 1] + 'e' + dezavinte[unidadedigitada]
             print (resultado)
-        elif 3 <= dezenadigitada <= 9:
-            resultado = centenas[centenadigitada - 1] + 'e' + dezenas[dezenadigitada -1] + 'e' +\
+        elif 2 <= dezenadigitada <= 9:
+            if unidadedigitada == 0:
+                resultado = centenas[centenadigitada - 1] + 'e' + dezenas[dezenadigitada -1]
+                print resultado
+            elif 2 <= unidadedigitada <= 9:
+                resultado = centenas[centenadigitada - 1] + 'e' + dezenas[dezenadigitada -1] + 'e' +\
                             unidades[unidadedigitada]
-            print(resultado)
+                print(resultado)
     elif milhardigitado == 1:
         resultado = 'mil'
         print (resultado)
