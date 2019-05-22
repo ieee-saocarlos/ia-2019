@@ -41,27 +41,33 @@ for contador in range(valordigitadoint + 1):
                 resultado = dezenas[dezenadigitada - 1]
                 print(resultado)
             elif 1 <= unidadedigitada <= 9:
-                resultado = dezenas[dezenadigitada - 1] + 'e' + unidades[unidadedigitada]
+                resultado = dezenas[dezenadigitada - 1] + ' e ' + unidades[unidadedigitada]
                 print(resultado)
+                resultado = resultado.replace(' ','')
+
     elif 1 <= centenadigitada <= 9:
         if dezenadigitada == 0:
             if unidadedigitada == 0:
                 resultado = 'cem'
                 print (resultado)
             elif 1 <= unidadedigitada <= 9:
-                resultado = centenas[centenadigitada - 1] + 'e' + unidades[unidadedigitada]
-                print (resultado)
+                resultado = centenas[centenadigitada - 1] + ' e ' + unidades[unidadedigitada]
+                print(resultado)
+                resultado = resultado.replace(' ', '')
         elif dezenadigitada == 1:
-            resultado = centenas[centenadigitada - 1] + 'e' + dezavinte[unidadedigitada]
-            print (resultado)
+            resultado = centenas[centenadigitada - 1] + ' e ' + dezavinte[unidadedigitada]
+            print(resultado)
+            resultado = resultado.replace(' ', '')
         elif 2 <= dezenadigitada <= 9:
             if unidadedigitada == 0:
-                resultado = centenas[centenadigitada - 1] + 'e' + dezenas[dezenadigitada -1]
-                print resultado
-            elif 2 <= unidadedigitada <= 9:
-                resultado = centenas[centenadigitada - 1] + 'e' + dezenas[dezenadigitada -1] + 'e' +\
+                resultado = centenas[centenadigitada - 1] + ' e ' + dezenas[dezenadigitada -1]
+                print(resultado)
+                resultado = resultado.replace(' ', '')
+            elif 1 <= unidadedigitada <= 9:
+                resultado = centenas[centenadigitada - 1] + ' e ' + dezenas[dezenadigitada -1] + ' e ' +\
                             unidades[unidadedigitada]
                 print(resultado)
+                resultado = resultado.replace(' ', '')
     elif milhardigitado == 1:
         resultado = 'mil'
         print (resultado)
