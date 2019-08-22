@@ -25,24 +25,44 @@ class player(object):
     """MÉTODO - MOVIMENTAÇÂO """ 
     #Eu deixei de usar dicionários pq eu tava encontrando dificuldades, mas podemos voltar a usar
     def move(self,esquerda,direita,cima,baixo):
-        if (esquerda ==1 and self.left == 1 and self.my1==self.my2):
-                self.velx = -2
-                self.vely = 0
-        else:
-            if (direita ==1 and self.right == 1 and self.my1==self.my2):
-                self.velx = 2
-                self.vely = 0
+        if(self.vely==0):
+            if (esquerda ==1 and self.left == 1 and self.my1==self.my2):
+                    self.velx = -2
+                    self.vely = 0
             else:
-                self.velx = 0
-        if (cima ==1 and self.up == 1 and self.mx1==self.mx2):
-                self.vely = -2
-                self.velx = 0
-        else:
-            if (baixo==1 and self.down == 1 and self.mx1==self.mx2):
-                self.vely = 2
-                self.velx = 0
+                if (direita ==1 and self.right == 1 and self.my1==self.my2):
+                    self.velx = 2
+                    self.vely = 0
+                else:
+                    self.velx = 0
+            if (cima ==1 and self.up == 1 and self.mx1==self.mx2):
+                    self.vely = -2
+                    self.velx = 0
             else:
-                self.vely = 0
+                if (baixo==1 and self.down == 1 and self.mx1==self.mx2):
+                    self.vely = 2
+                    self.velx = 0
+                else:
+                    self.vely = 0
+        else:
+            if (cima ==1 and self.up == 1 and self.mx1==self.mx2):
+                    self.vely = -2
+                    self.velx = 0
+            else:
+                if (baixo==1 and self.down == 1 and self.mx1==self.mx2):
+                    self.vely = 2
+                    self.velx = 0
+                else:
+                    self.vely = 0
+            if (esquerda ==1 and self.left == 1 and self.my1==self.my2):
+                    self.velx = -2
+                    self.vely = 0
+            else:
+                if (direita ==1 and self.right == 1 and self.my1==self.my2):
+                    self.velx = 2
+                    self.vely = 0
+                else:
+                    self.velx = 0
         self.x += self.velx
         self.y += self.vely
         self.mx1 = math.floor(self.x / 24)
@@ -51,27 +71,35 @@ class player(object):
         self.my2 = math.floor((self.y+self.tamanho) / 24)
 
     def analiseParede(self, mapa):
-        if(mapa[self.my1 + 1][self.mx1]==1 and mapa[self.my2+1][self.mx2]==1):
-            self.down = 0
-            self.vely=0
+        if(mapa[self.my1][self.mx1]==2 and mapa[self.my2][self.mx2]==2):
+            mapa[self.my1][self.mx1] =0
+        if((self.mx1<27 and  self.mx2<27)and(self.mx1>0 and  self.mx2>0)):
+            if(mapa[self.my1 + 1][self.mx1]==1 and mapa[self.my2+1][self.mx2]==1):
+                self.down = 0
+                self.vely=0
+            else:
+                self.down = 1
+            if (mapa[self.my1 - 1][self.mx1]==1 and mapa[self.my2-1][self.mx2]==1):
+                self.up = 0
+                self.vely=0
+            else:
+                self.up = 1
+            if (mapa[self.my1 ][self.mx1+1]==1 and mapa[self.my2][self.mx2+1]==1):
+                self.right = 0
+                self.velx=0
+            else:
+                self.right = 1
+            if (mapa[self.my1 ][self.mx1-1]==1 and mapa[self.my2][self.mx2-1]==1):
+                self.left = 0
+                self.velx = 0
+            else:
+                self.left = 1
         else:
-            self.down = 1
-        if (mapa[self.my1 - 1][self.mx1]==1 and mapa[self.my2-1][self.mx2]==1):
-            self.up = 0
-            self.vely=0
-        else:
-            self.up = 1
-        if (mapa[self.my1 ][self.mx1+1]==1 and mapa[self.my2][self.mx2+1]==1):
-            self.right = 0
-            self.velx=0
-        else:
-            self.right = 1
-        if (mapa[self.my1 ][self.mx1-1]==1 and mapa[self.my2][self.mx2-1]==1):
-            self.left = 0
-            self.velx = 0
-        else:
-            self.left = 1
-
+            if(self.x>224*3 and self.velx>0):
+                self.x=-24
+            else:
+                if (self.x <= -24 and self.velx < 0):
+                    self.x = 224*3
 
     """MÉTODO - DESENHANDO O PLAYER """
     def draw(self, display, cor):
@@ -94,7 +122,8 @@ def print_display():
     #count+=1
     # --- #TESTE DE TEXTO:texto(None,display,50,f'{count}',True,(255,0,0),[largura/2+100,altura/2])
     display.fill((0,0,10))
-    printMapa(mapa)
+    if(printMapa(mapa)==1):
+        texto(None, display, 50, f'WIN!', True, (255, 0, 0), [largura / 2 + 100, altura / 2])
     pac.draw(display, amarelo)
     pygame.display.update();
     timer.tick(60)
@@ -145,10 +174,16 @@ def geraMapa():
     return mapa
 
 def printMapa(mapa):
+    cont=0
     for c in range(36):
         for d in range(28):
             if (mapa[c][d] == 1):
                 pygame.draw.rect(display, (0, 0, 100), [d * 24, c * 24, 24, 24], 0)
+            if (mapa[c][d] == 2):
+                pygame.draw.circle(display, (100, 100, 0), [(d * 24)+12, (c * 24)+12],5, 0)
+                cont+=1
+    if cont ==0:
+        return 1
 
 
     
