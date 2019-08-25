@@ -17,49 +17,51 @@ class player(object):
         self.cor = cor
         self.velx = 0
         self.vely = 0
+        self.velTest = 2 #TEM QUE SER DIVISOR DE 24
         self.up=0
         self.down=0
         self.left=0
         self.right=0
+        self.comedor = False
 
     """MÉTODO - MOVIMENTAÇÂO """ 
     #Eu deixei de usar dicionários pq eu tava encontrando dificuldades, mas podemos voltar a usar
     def move(self,esquerda,direita,cima,baixo):
         if(self.vely==0):
             if (esquerda ==1 and self.left == 1 and self.my1==self.my2):
-                    self.velx = -2
+                    self.velx = -self.velTest
                     self.vely = 0
             else:
                 if (direita ==1 and self.right == 1 and self.my1==self.my2):
-                    self.velx = 2
+                    self.velx = self.velTest
                     self.vely = 0
                 else:
                     self.velx = 0
             if (cima ==1 and self.up == 1 and self.mx1==self.mx2):
-                    self.vely = -2
+                    self.vely = -self.velTest
                     self.velx = 0
             else:
                 if (baixo==1 and self.down == 1 and self.mx1==self.mx2):
-                    self.vely = 2
+                    self.vely = self.velTest
                     self.velx = 0
                 else:
                     self.vely = 0
         else:
             if (cima ==1 and self.up == 1 and self.mx1==self.mx2):
-                    self.vely = -2
+                    self.vely = -self.velTest
                     self.velx = 0
             else:
                 if (baixo==1 and self.down == 1 and self.mx1==self.mx2):
-                    self.vely = 2
+                    self.vely = self.velTest
                     self.velx = 0
                 else:
                     self.vely = 0
             if (esquerda ==1 and self.left == 1 and self.my1==self.my2):
-                    self.velx = -2
+                    self.velx = -self.velTest
                     self.vely = 0
             else:
                 if (direita ==1 and self.right == 1 and self.my1==self.my2):
-                    self.velx = 2
+                    self.velx = self.velTest
                     self.vely = 0
                 else:
                     self.velx = 0
@@ -71,25 +73,28 @@ class player(object):
         self.my2 = math.floor((self.y+self.tamanho) / 24)
 
     def analiseParede(self, mapa):
-        if(mapa[self.my1][self.mx1]==2 and mapa[self.my2][self.mx2]==2):
-            mapa[self.my1][self.mx1] =0
         if((self.mx1<27 and  self.mx2<27)and(self.mx1>0 and  self.mx2>0)):
-            if(mapa[self.my1 + 1][self.mx1]==1 and mapa[self.my2+1][self.mx2]==1):
+            if (mapa[self.my1][self.mx1] == 2 and mapa[self.my2][self.mx2] == 2):
+                mapa[self.my1][self.mx1] = 0
+            if (mapa[self.my1][self.mx1] == 3 and mapa[self.my2][self.mx2] == 3):
+                mapa[self.my1][self.mx1] = 0
+                self.comedor = True
+            if(mapa[self.my1 + 1][self.mx1]%3==1 and mapa[self.my2+1][self.mx2]%3==1):
                 self.down = 0
                 self.vely=0
             else:
                 self.down = 1
-            if (mapa[self.my1 - 1][self.mx1]==1 and mapa[self.my2-1][self.mx2]==1):
+            if (mapa[self.my1 - 1][self.mx1]%3==1 and mapa[self.my2-1][self.mx2]%3==1):
                 self.up = 0
                 self.vely=0
             else:
                 self.up = 1
-            if (mapa[self.my1 ][self.mx1+1]==1 and mapa[self.my2][self.mx2+1]==1):
+            if (mapa[self.my1 ][self.mx1+1]%3==1 and mapa[self.my2][self.mx2+1]%3==1):
                 self.right = 0
                 self.velx=0
             else:
                 self.right = 1
-            if (mapa[self.my1 ][self.mx1-1]==1 and mapa[self.my2][self.mx2-1]==1):
+            if (mapa[self.my1 ][self.mx1-1]%3==1 and mapa[self.my2][self.mx2-1]%3==1):
                 self.left = 0
                 self.velx = 0
             else:
@@ -120,10 +125,9 @@ def texto(nomeFont,display,tamanho=100,msg='olá!',ant=True,cor=(100,100,100),po
 def print_display(): 
     #PRINTANDO NO DISPLAY
     #count+=1
-    # --- #TESTE DE TEXTO:texto(None,display,50,f'{count}',True,(255,0,0),[largura/2+100,altura/2])
     display.fill((0,0,10))
     if(printMapa(mapa)==1):
-        texto(None, display, 50, f'WIN!', True, (255, 0, 0), [largura / 2 + 100, altura / 2])
+        texto(None, display, 50, f'WIN!', True, (255, 0, 0), [largura / 2 -40, altura / 2-30])
     pac.draw(display, amarelo)
     pygame.display.update();
     timer.tick(60)
@@ -180,9 +184,14 @@ def printMapa(mapa):
             if (mapa[c][d] == 1):
                 pygame.draw.rect(display, (0, 0, 100), [d * 24, c * 24, 24, 24], 0)
             if (mapa[c][d] == 2):
-                pygame.draw.circle(display, (100, 100, 0), [(d * 24)+12, (c * 24)+12],5, 0)
+                pygame.draw.circle(display, (100, 100, 0), [(d * 24)+12, (c * 24)+12],3, 0)
                 cont+=1
-    if cont ==0:
+            if (mapa[c][d] == 3):
+                pygame.draw.circle(display, (100, 100, 0), [(d * 24) + 12, (c * 24) + 12], 8, 0)
+                cont += 1
+            if (mapa[c][d] == 4):
+                pygame.draw.rect(display, (200, 130,130), [d * 24, c * 24, 24, 5], 0)
+    if cont == 0:
         return 1
 
 
@@ -219,7 +228,7 @@ font = pygame.font.SysFont(None,25)
 """LOOPING DE EVENTOS"""
 
 # Instance da classe player - Pacman
-pac = player(int(224*3/2), int(288*3/2)-40, amarelo)
+pac = player(int(224*3/2), 20*24, amarelo)
 
 while (sair):
     #ANALISE DAS ENTRADAS DE EVENTOS
