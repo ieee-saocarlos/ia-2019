@@ -1,13 +1,20 @@
 import pygame
 import sys
+import tijolos
+import plataforma
 
 pygame.init()
 clock = pygame.time.Clock()
 
 white = (255, 255, 255)
 black = (0, 0, 0)
+laranja = (255, 126, 0)
+vermelho = (255, 0, 0)
+azul = (0, 0, 255)
+verde = (0, 255, 0)
+roxo = (255, 0, 255)
 
-size = width, height = 600, 600
+size = width, height = 1000, 600
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption('NPC Breakout')
 
@@ -35,11 +42,27 @@ while True:
     if ball_pos[1] == 0 or ball_pos[1] == size[1] - ball_size[1]:
         ball_vel[1] = ball_vel[1] * -1
 
+    tijolos.desenhar(ball_pos[0], ball_pos[1], vermelho, screen)
+
+
+    # desenha a bola
     pygame.draw.rect(screen, white, [ball_pos[0], ball_pos[1], ball_size[0], ball_size[1]])
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                plataforma.movement = -1 * plataforma.speed
+            if event.key == pygame.K_RIGHT:
+                plataforma.movement = plataforma.speed
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                plataforma.movement = 0
+
+    plataforma.desenhar(roxo, screen)
 
     clock.tick(30)
     pygame.display.update()
