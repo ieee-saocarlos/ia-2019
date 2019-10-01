@@ -1,4 +1,5 @@
 import pyglet
+import random
 from objeto import Objeto
 from random import choice
 from math import atan, pi, sin, cos , fabs
@@ -8,8 +9,7 @@ class Tela(pyglet.window.Window):
         super().__init__(*args, **kwargs)
         self.set_location(70, 80)
 
-        self.cores = ['vermelha', 'verde', 'roxa', 'rosa', 'laranja',
-                      'azul', 'azulado', 'amarela']
+        self.cores = [r'imagens\bola_vermelha.png', r'imagens\bola_rosa.png',r'imagens\bola_amarela.png',r'imagens\bola_verde.png',r'imagens\bola_azul.png']
 
         self.frame_rate = 1/120
         self.vel_bolas = 500
@@ -17,7 +17,7 @@ class Tela(pyglet.window.Window):
         self.imagem_seta = pyglet.image.load(r'imagens\seta.png')
         self.imagem_seta.anchor_y = self.imagem_seta.height // 2
 
-        self.imagem_bola = pyglet.image.load(r'imagens\bola_rosa.png')
+        self.imagem_bola = pyglet.image.load(choice(self.cores))
         self.imagem_bola.anchor_x = self.imagem_bola.width // 2
         self.imagem_bola.anchor_y = self.imagem_bola.height // 2
 
@@ -60,8 +60,11 @@ class Tela(pyglet.window.Window):
 
         self.prox_cor = choice(self.cores)
 
-        self.prox_bola = Objeto(self.dicionario[self.prox_cor], 775, 50)
+        self.imagem_bola = pyglet.image.load(choice(self.cores))
+        self.imagem_bola.anchor_x = self.imagem_bola.width // 2
+        self.imagem_bola.anchor_y = self.imagem_bola.height // 2
 
+        self.prox_bola = Objeto(self.dicionario[self.prox_cor], 775, 50)
     def update_bolas(self, dt):
         for bola in self.bolas:
             if bola.parada == False:
@@ -73,6 +76,7 @@ class Tela(pyglet.window.Window):
                 bola.velx=fabs(bola.velx)
             if bola.sprite.y > 871:
                 bola.parada=True
+
 
     def on_draw(self):
         self.clear()
