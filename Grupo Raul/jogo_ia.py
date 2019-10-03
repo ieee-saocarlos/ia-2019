@@ -20,7 +20,7 @@ class Tela(pyglet.window.Window):
         self.cores = [r'imagens\bola_vermelha.png', r'imagens\bola_rosa.png',r'imagens\bola_amarela.png',r'imagens\bola_verde.png',r'imagens\bola_azul.png']
 
         self.frame_rate = 1/240
-        self.vel_bolas = 500
+        self.vel_bolas = 600
 
         self.imagem_seta = pyglet.image.load(r'imagens\seta.png')
         self.imagem_seta.anchor_y = self.imagem_seta.height // 2
