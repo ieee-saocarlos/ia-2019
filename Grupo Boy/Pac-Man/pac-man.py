@@ -17,7 +17,7 @@ class player(object):
         self.cor = cor
         self.velx = 0
         self.vely = 0
-        self.velTest = 2 #TEM QUE SER DIVISOR DE 24
+        self.velTest = 2                              # TEM QUE SER DIVISOR DE 24
         self.up=0
         self.down=0
         self.left=0
@@ -208,7 +208,7 @@ altura= 288*3
 sair = True
 amarelo =(150,150,0)
 fps =60
-count=0
+count = 0
 esquerda=0
 direita=0
 cima=0

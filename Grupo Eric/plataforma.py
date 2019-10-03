@@ -1,4 +1,7 @@
 import pygame
 
-def desenhar(roxo, screen):
-    pygame.draw.rect(screen, roxo, [posicao[0], posicao[1], 100, 20])
+
+def draw(purple, screen, pos, ball_pos):
+    pygame.draw.rect(screen, purple, [pos[0], pos[1], 100, 5])
+    #if ball_pos[1] > :
+
