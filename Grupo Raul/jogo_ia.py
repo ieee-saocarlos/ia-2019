@@ -135,6 +135,11 @@ class Tela(pyglet.window.Window):
         a1 = (x1 - x2) ** 2
         a2 = (y1 - y2) ** 2
         return (a1 + a2)
+    #def Game_Over(self):
+        #if bola.parada=True
+         # if bola.sprite.y=850
+          #
+
 
 if __name__ == "__main__":
     win = Tela(900, 900, "Jogo das bolinhas", resizable=False, vsync=True)
