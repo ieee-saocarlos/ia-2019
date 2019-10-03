@@ -4,6 +4,7 @@ from objeto import Objeto
 from random import choice
 from math import atan, pi, sin, cos , fabs
 
+
 class Tela(pyglet.window.Window):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -19,8 +20,10 @@ class Tela(pyglet.window.Window):
 
         self.cores = [r'imagens\bola_vermelha.png', r'imagens\bola_rosa.png',r'imagens\bola_amarela.png',r'imagens\bola_verde.png',r'imagens\bola_azul.png']
 
+        self.perdeu = False
+
         self.frame_rate = 1/240
-        self.vel_bolas = 600
+        self.vel_bolas = 800
 
         self.imagem_seta = pyglet.image.load(r'imagens\seta.png')
         self.imagem_seta.anchor_y = self.imagem_seta.height // 2
@@ -34,6 +37,10 @@ class Tela(pyglet.window.Window):
         self.bolas = []
 
         self.seta = Objeto(self.imagem_seta, self.pos_seta[0], self.pos_seta[1])
+
+        self.imagem_Gameover = pyglet.image.load(r'imagens\Gameover.png')
+
+        self.Gameover= Objeto(self.imagem_Gameover,0,0)
 
     def on_mouse_press(self, x, y, button, modifiers):
         if self.bola_voando == False:
@@ -120,25 +127,42 @@ class Tela(pyglet.window.Window):
 
     def on_draw(self):
         self.clear()
-        self.seta.draw()
-        self.nova_bola.draw()
-        self.bola_previa.draw()
-        for bola in self.bolas:
-            bola.draw()
+        if self.perdeu:
+            self.Gameover.draw()
+        else:
+            self.seta.draw()
+            self.nova_bola.draw()
+            self.bola_previa.draw()
+            for bola in self.bolas:
+                bola.draw()
 
     def update(self, dt):
         if self.prev and self.bola_voando == False:
             self.previa()
         self.update_bolas(dt)
+        self.Game_Over()
 
     def dist(self, x1, y1, x2, y2):
         a1 = (x1 - x2) ** 2
         a2 = (y1 - y2) ** 2
         return (a1 + a2)
-    #def Game_Over(self):
-        #if bola.parada=True
-         # if bola.sprite.y=850
-          #
+
+    def Game_Over(self):
+        for bola in self.bolas:
+            if bola.parada==True:
+              if bola.sprite.y<=60:
+                self.perdeu = True
+
+    def p_ang(xi, yi, xf, yf):
+        ang = math.atan((yf - yi) / (xf - xi))
+        return (180 * ang / math.pi)
+
+   # def mapeamento(self,bola1,bola2):
+
+
+
+
+
 
 
 if __name__ == "__main__":
