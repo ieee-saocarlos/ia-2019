@@ -72,6 +72,14 @@ while True:
                     wall.append([w / 2 - 25 + row * 55, h / 2 - column * 20])
                 wall.append([w / 2 - 25 - row * 55, h / 2 - column * 20])
 
+    plat_pos[0] += plat_mov
+    ric = objects.plat(ball_pos[0], ball_pos[1], purple, screen, plat_pos, ball_size, ball_vel)
+    if ric is not None:
+        if ric == 'x':
+            ball_vel[0] *= -1
+        else:
+            ball_vel[1] *= -1
+
     col = objects.bricks(ball_pos[0], ball_pos[1], red, screen, wall, ball_size, ball_vel)
     if col is not None:
         points += 1
@@ -99,9 +107,6 @@ while True:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 plat_mov = 0
-
-    plat_pos[0] += plat_mov
-    objects.plat(purple, screen, plat_pos, ball_pos)
 
     screen.blit(text('score: ' + str(points)), [10, 10])
     screen.blit(text('level: ' + str(level)), [w - 80, 10])
