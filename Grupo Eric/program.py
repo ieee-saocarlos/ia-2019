@@ -22,7 +22,12 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption('NPC Breakout')
 
 # Coordenadas dos tijolos
-wall = [[w/2, h/2], [w/2-55, h/2], [w/2+55, h/2], [w/2-55*2, h/2], [w/2+55*2, h/2]]
+wall = []
+for column in range(15):
+    for row in range(9):
+        if row is not 0:
+            wall.append([w/2-25+row*55, h/2-column*20])
+        wall.append([w/2-25-row*55, h/2-column*20])
 
 while 1:
     ball_dir = [random.randint(-1, 2), random.randint(-1, 2)]
