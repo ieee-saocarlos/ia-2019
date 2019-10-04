@@ -1,7 +1,6 @@
 import pygame
 import sys
-import tijolos
-import plataforma
+import objects
 import random
 
 
@@ -31,7 +30,7 @@ ball_speed = 3
 ball_pos = [w/2, h/2 + 100]
 ball_vel = [x * ball_speed for x in ball_dir]
 
-plat_pos = [w/2, h-2]
+plat_pos = [w/2, h-25]
 plat_mov = 0
 speed = 5
 
@@ -73,7 +72,7 @@ while True:
                     wall.append([w / 2 - 25 + row * 55, h / 2 - column * 20])
                 wall.append([w / 2 - 25 - row * 55, h / 2 - column * 20])
 
-    col = tijolos.draw(ball_pos[0], ball_pos[1], red, screen, wall, ball_size, ball_vel)
+    col = objects.bricks(ball_pos[0], ball_pos[1], red, screen, wall, ball_size, ball_vel)
     if col is not None:
         points += 1
         # Apaga o tijolo em que a bola colidiu
@@ -82,7 +81,7 @@ while True:
             ball_vel[0] *= -1
         else:
             ball_vel[1] *= -1
-    tijolos.draw(ball_pos[0], ball_pos[1], red, screen, wall, ball_size, ball_vel)
+    objects.bricks(ball_pos[0], ball_pos[1], red, screen, wall, ball_size, ball_vel)
 
     # draw the ball
     pygame.draw.rect(screen, white, [ball_pos[0], ball_pos[1], ball_size[0], ball_size[1]])
@@ -102,7 +101,7 @@ while True:
                 plat_mov = 0
 
     plat_pos[0] += plat_mov
-    plataforma.draw(purple, screen, plat_pos, ball_pos)
+    objects.plat(purple, screen, plat_pos, ball_pos)
 
     screen.blit(text('score: ' + str(points)), [10, 10])
     screen.blit(text('level: ' + str(level)), [w - 80, 10])
