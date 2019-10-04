@@ -21,32 +21,29 @@ size = w, h = 1000, 600
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption('NPC Breakout')
 
-# Coordenadas dos tijolos
-wall = []
-for column in range(15):
-    for row in range(9):
-        if row is not 0:
-            wall.append([w/2-25+row*55, h/2-column*20])
-        wall.append([w/2-25-row*55, h/2-column*20])
-
 while 1:
     ball_dir = [random.randint(-1, 2), random.randint(-1, 2)]
     if ball_dir is not [0, 0]:
         break
 
 ball_size = [10, 10]
-ball_speed = 2.5
+ball_speed = 3
 ball_pos = [w/2, h/2 + 100]
 ball_vel = [x * ball_speed for x in ball_dir]
 
-plat_pos = [w/2, h-5]
+plat_pos = [w/2, h-2]
 plat_mov = 0
 speed = 5
+
+wall = []
+
+points = 0
+level = 0
 
 
 def text(string):
     font = pygame.font.SysFont("arial", 20)
-    label = font.render(string, True, black)
+    label = font.render(string, True, white)
     return label
 
 
@@ -66,14 +63,26 @@ while True:
     if ball_pos[1] < 0 or ball_pos[1] > size[1] - ball_size[1] - 5:
         ball_vel[1] = ball_vel[1] * -1
 
-    col = tijolos.draw(ball_pos[0], ball_pos[1], red, screen, wall, ball_size)
+    if not wall:
+        level += 1
+        # Coordenadas dos tijolos
+        wall = []
+        for column in range(14):
+            for row in range(9):
+                if row is not 0:
+                    wall.append([w / 2 - 25 + row * 55, h / 2 - column * 20])
+                wall.append([w / 2 - 25 - row * 55, h / 2 - column * 20])
+
+    col = tijolos.draw(ball_pos[0], ball_pos[1], red, screen, wall, ball_size, ball_vel)
     if col is not None:
+        points += 1
         # Apaga o tijolo em que a bola colidiu
         wall.pop(col[0])
         if col[1] == 'x':
             ball_vel[0] *= -1
         else:
             ball_vel[1] *= -1
+    tijolos.draw(ball_pos[0], ball_pos[1], red, screen, wall, ball_size, ball_vel)
 
     # draw the ball
     pygame.draw.rect(screen, white, [ball_pos[0], ball_pos[1], ball_size[0], ball_size[1]])
@@ -94,6 +103,9 @@ while True:
 
     plat_pos[0] += plat_mov
     plataforma.draw(purple, screen, plat_pos, ball_pos)
+
+    screen.blit(text('score: ' + str(points)), [10, 10])
+    screen.blit(text('level: ' + str(level)), [w - 80, 10])
 
     clock.tick(60)
     pygame.display.update()
