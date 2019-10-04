@@ -7,12 +7,12 @@ def colision(vertexes, brick, ball_vel):
         if brick[0] < vert[0] < brick[0] + 55 and brick[1] < vert[1] < brick[1] + 15:
             past_vert[0] = vert[0] - ball_vel[0]
             past_vert[1] = vert[1] - ball_vel[1]
-            tan = (vert[1] - past_vert[1]) / (vert[0] - past_vert[1])
             if brick[0] < (vert[0] and past_vert[0]) < brick[0] + 55:
                 return 'y'
             elif brick[1] < (vert[1] and past_vert[1]) < brick[1] + 55:
                 return 'x'
             else:
+                tan = (vert[1] - past_vert[1]) / (vert[0] - past_vert[0])
                 if -1 < tan < 1:
                     return 'x'
                 else:
@@ -41,14 +41,18 @@ def plat(x, y, purple, screen, plat_pos, ball_size, ball_vel):
         if plat_pos[0] < vert[0] < plat_pos[0] + 100 and plat_pos[1] < vert[1] < plat_pos[1] + 15:
             past_vert[0] = vert[0] - ball_vel[0]
             past_vert[1] = vert[1] - ball_vel[1]
-            tan = (vert[1] - past_vert[1]) / (vert[0] - past_vert[1])
-            if plat_pos[0] < (vert[0] and past_vert[0]) < plat_pos[0] + 55:
-                return 'y'
-            elif plat_pos[1] < (vert[1] and past_vert[1]) < plat_pos[1] + 55:
-                return 'x'
+            acc = ((x+ball_size[0]/2)-(plat_pos[0]+100/2))/(50/3)
+            if plat_pos[0] < (vert[0] and past_vert[0]) < plat_pos[0] + 100:
+                return 'y', acc
+            elif plat_pos[1] < (vert[1] and past_vert[1]) < plat_pos[1] + 15:
+                return 'x', acc
             else:
+                try:
+                    tan = (vert[1] - past_vert[1]) / (vert[0] - past_vert[0])
+                except:
+                    tan = 0
                 if -1 < tan < 1:
-                    return 'x'
+                    return 'x', acc
                 else:
-                    return 'y'
+                    return 'y', acc
     i += 1

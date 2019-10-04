@@ -20,19 +20,18 @@ size = w, h = 1000, 600
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption('NPC Breakout')
 
-while 1:
-    ball_dir = [random.randint(-1, 2), random.randint(-1, 2)]
-    if ball_dir is not [0, 0]:
-        break
+#ball_dir = [random.randint(-1, 2), random.randint(-1, 2)]
+ball_dir = [0, -1]
 
 ball_size = [10, 10]
 ball_speed = 3
 ball_pos = [w/2, h/2 + 100]
 ball_vel = [x * ball_speed for x in ball_dir]
+print(ball_vel)
 
 plat_pos = [w/2, h-25]
 plat_mov = 0
-speed = 5
+speed = 7
 
 wall = []
 
@@ -59,8 +58,10 @@ while True:
 
     if ball_pos[0] < 0 or ball_pos[0] > size[0] - ball_size[0]:
         ball_vel[0] = ball_vel[0] * -1
-    if ball_pos[1] < 0 or ball_pos[1] > size[1] - ball_size[1] - 5:
+    elif ball_pos[1] < 0:
         ball_vel[1] = ball_vel[1] * -1
+    elif ball_pos[1] > size[1] - ball_size[1]:
+        ball_vel = [0, 0]
 
     if not wall:
         level += 1
@@ -75,7 +76,8 @@ while True:
     plat_pos[0] += plat_mov
     ric = objects.plat(ball_pos[0], ball_pos[1], purple, screen, plat_pos, ball_size, ball_vel)
     if ric is not None:
-        if ric == 'x':
+        ball_vel[0] = ric[1]
+        if ric[0] == 'x':
             ball_vel[0] *= -1
         else:
             ball_vel[1] *= -1
