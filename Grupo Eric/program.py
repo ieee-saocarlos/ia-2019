@@ -32,7 +32,7 @@ ball_vel = [0, ball_speed]
 
 plat_pos = [w/2 - 50, h - 25]
 plat_mov = 0
-speed = 7
+speed = 5
 
 wall = []
 
