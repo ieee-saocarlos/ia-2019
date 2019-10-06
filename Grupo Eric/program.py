@@ -1,11 +1,8 @@
 import pygame
 import sys
 import objects
-import random
-
-
-pygame.init()
-clock = pygame.time.Clock()
+from ball import Ball
+from plat import Plat
 
 # Colors
 white = (255, 255, 255)
@@ -16,23 +13,19 @@ azul = (0, 0, 255)
 verde = (0, 255, 0)
 purple = (255, 0, 255)
 
-size = w, h = 1000, 600
-screen = pygame.display.set_mode(size)
+# initialize
+pygame.init()
+clock = pygame.time.Clock()
+
+screen_size = w, h = 1000, 600
+screen = pygame.display.set_mode(screen_size)
 pygame.display.set_caption('NPC Breakout')
 
-while 1:
-    ball_dir = [random.randint(-1, 2), random.randint(-1, 2)]
-    if ball_dir is not [0, 0]:
-        break
+# main ball initial state
+main_ball = Ball(size=[10, 10], speed=3, pos=[w / 2, h / 2 + 100])
 
-ball_size = [10, 10]
-ball_speed = 3
-ball_pos = [w/2, h/2 + 100]
-ball_vel = [0, ball_speed]
-
-plat_pos = [w/2 - 50, h - 25]
-plat_mov = 0
-speed = 5
+# main plat initial state
+main_plat = Plat(pos=[w / 2 - 50, h - 25], speed=5, mov=0)
 
 wall = []
 
@@ -54,16 +47,6 @@ def image(window, image_name, x, y):
 while True:
     screen.fill(black)
 
-    ball_pos[0] = ball_pos[0] + ball_vel[0]
-    ball_pos[1] = ball_pos[1] + ball_vel[1]
-
-    if ball_pos[0] < 0 or ball_pos[0] > size[0] - ball_size[0]:
-        ball_vel[0] = ball_vel[0] * -1
-    elif ball_pos[1] < 0:
-        ball_vel[1] = ball_vel[1] * -1
-    elif ball_pos[1] > size[1] - ball_size[1]:
-        ball_vel = [0, 0]
-
     if not wall:
         level += 1
         # Coordenadas dos tijolos
@@ -74,30 +57,34 @@ while True:
                     wall.append([w / 2 - 25 + row * 55, h / 2 - column * 20])
                 wall.append([w / 2 - 25 - row * 55, h / 2 - column * 20])
 
-    if not (plat_pos[0] < 0 and plat_mov < 0) and not (plat_pos[0] > w - 100 and plat_mov > 0):
-        plat_pos[0] += plat_mov
+    main_ball.mov(screen_size)
 
-    ric = objects.plat(ball_pos[0], ball_pos[1], purple, screen, plat_pos, ball_size, ball_vel)
+    if not (main_plat.pos[0] < 0 and main_plat.mov < 0) and not (main_plat.pos[0] > w - 100 and main_plat.mov > 0):
+        main_plat.pos[0] += main_plat.mov
+
+    ric = objects.plat(main_ball.pos[0], main_ball.pos[1], purple, screen, main_plat.pos, main_ball.size, main_ball.vel)
     if ric is not None:
-        ball_vel[0] = ric[1]
+        main_ball.vel[0] = ric[1]
         if ric == 'x':
-            ball_vel[0] *= -1
+            main_ball.vel[0] *= -1
         else:
-            ball_vel[1] *= -1
+            main_ball.vel[1] *= -1
 
-    col = objects.bricks(ball_pos[0], ball_pos[1], red, screen, wall, ball_size, ball_vel)
+
+    col = objects.bricks(main_ball.pos[0], main_ball.pos[1], red, screen, wall, main_ball.size, main_ball.vel)
     if col is not None:
         points += 1
         # Apaga o tijolo em que a bola colidiu
         wall.pop(col[0])
         if col[1] == 'x':
-            ball_vel[0] *= -1
+            main_ball.vel[0] *= -1
         else:
-            ball_vel[1] *= -1
-    objects.bricks(ball_pos[0], ball_pos[1], red, screen, wall, ball_size, ball_vel)
+            main_ball.vel[1] *= -1
+
+    objects.bricks(main_ball.pos[0], main_ball.pos[1], red, screen, wall, main_ball.size, main_ball.vel)
 
     # draw the ball
-    pygame.draw.rect(screen, white, [ball_pos[0], ball_pos[1], ball_size[0], ball_size[1]])
+    pygame.draw.rect(screen, white, [main_ball.pos[0], main_ball.pos[1], main_ball.size[0], main_ball.size[1]])
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -105,13 +92,13 @@ while True:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                plat_mov = -speed
+                main_plat.mov = -main_plat.speed
             if event.key == pygame.K_RIGHT:
-                plat_mov = speed
+                main_plat.mov = main_plat.speed
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                plat_mov = 0
+                main_plat.mov = 0
 
     screen.blit(text('score: ' + str(points)), [10, 10])
     screen.blit(text('level: ' + str(level)), [w - 80, 10])
