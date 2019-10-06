@@ -147,7 +147,7 @@ class Game:
     def reset(self):
 
         self.space.remove(self.removiveis)
-        self.Criaremov()
+        self.criaremov()
 
         self.status = "PLAYING"
 

@@ -12,3 +12,8 @@
 - Ao iniciar variáveis de métodos as vírgulas devem ter espaço à direita. 
   Errado: self.circulo = pymunk.Circle(self.circulo_body,r)
   Correto: self.circulo = pymunk.Circle(self.circulo_body, r)
+- Evitar inicializar variaveis fora do __init__
+
+No mais o jogo está ficando muito bom! Continuem com o bom trabalho!
+
+PEP 08: https://www.python.org/dev/peps/pep-0008/
