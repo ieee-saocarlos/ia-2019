@@ -95,7 +95,7 @@ class Game:
         self.Triangulo2_1 = obstaculos.Triangulo2(385, 121, -40, 90, 40)
         self.space.add(self.Triangulo2_0.triangulo2, self.Triangulo2_1.triangulo2)
 
-        self.Criaremov()
+        self.criaremov()
 
         # Criando os bastoes
         aux = func.ancorar(pyglet.image.load('resources/images/bastao1.png'), 'esq')
@@ -119,7 +119,7 @@ class Game:
         self.molaS = 'GO'
         self.molaX = 0
 
-    def Criaremov(self):
+    def criaremov(self):
         self.Trigira_0 = obstaculos.Trigira(150, 300, 30)
         self.Trigira_1 = obstaculos.Trigira(190, 360, 30)
         self.Trigira_2 = obstaculos.Trigira(160, 400, 30)
