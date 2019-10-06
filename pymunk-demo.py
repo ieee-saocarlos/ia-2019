@@ -55,7 +55,7 @@ def main():
 
     # Set pymunk
     space = pymunk.Space()
-    space.gravity = (0.0, 0.0)
+    space.gravity = (0.0, -900.0)
     balls = []
     draw_options = pymunk.pygame_util.DrawOptions(screen)
     walls = add_static_wall(space)
