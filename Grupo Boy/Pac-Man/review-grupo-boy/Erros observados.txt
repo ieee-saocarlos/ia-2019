@@ -1,0 +1,36 @@
+- Entre os "imports" e o corpo do programa é recomendado pular duas linhas. Entre duas funções também.
+- Quando comentar, adicionar um espaço entre o '#' e o início do comment.
+- Nomes de classes usam a CamelCase (CapWords) convention, ou seja, o nome da classe inicia com letra maiúscula e 
+  caso utilize outra palavra ela não deve ser separada e iniciar com letra miúscula. Exemplo: quero chamar minha classe 
+  de 'minha classe'. O nome dela será 'MinhaClasse'. 
+- Nomes de funções e variáveis devem ser escritas apenas com minúsculas e as palavras separada por '_' para facilitar a
+  leitura.
+  Evitar: analiseParede
+  Usar: analise_parede 
+- Operadores deves ser separados por espaço. Não é x=1+1 e sim x = 1 + 1.
+- A mesma coisa vale para a vírgula ao definir varíaveis de métodos. 
+  Errado: self,esquerda,direita
+  Correto: self, esquerda, direita
+- if, while, for, etc. NÃO precisam de parêntesis 
+  Evitar: if (self.vely == 0):
+  Usar: if self.vely == 0:
+  Nota: Esse parêntesis é redundante em Python
+- Evite identar mais de uma vez. Mesmo que fique um pouco mais bonito, isso pode atrapalhar quando você quiser ver qual
+  if está dentro do outro e também caso você queria adicionar outra condição.
+- Evite nomear as variáveis locais com o mesmo nome de variáveis globais. Não evita que o código funcione, mas é
+  interessante para evitar confusões
+- Para a matriz mapa é legal criar outro arquivo. Na verdade, as seções que você dividiu, por exemplo, a seção classes 
+  poderia ter sido modularizada em outro arquivo .py que conteria as classes e funções do Player.
+
+Muitos dos erros provavelmente decorreram do conhecimento de programação em C. O que é totalmente normal.
+
+O Python preza por ter bastante espaço vazio, de forma que o código pareça mais limpo ao olhar. Então talvez seja
+legal comentar no código da forma que você programa, usando identação para saber o nível do comentário e evitando comentar
+com ''' quando usar apenas uma linha. Além disso, não é necessário utilizar comentários para indicar o final de uma seção,
+isso é necessário em linguagens em que não é obrigatóro identar, mas a identação possibilita que isso não precise ser
+feito, deixando o código mais limpo. Por exemplo, em C vc precisa colocar o corpo da função entre chaves ({}), mas em
+Python a identação cuida disso.
+
+No mais o jogo está ficando muito bom! Continuem com o bom trabalho!
+
+PEP 08: https://www.python.org/dev/peps/pep-0008/

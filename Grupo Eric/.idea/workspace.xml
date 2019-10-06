@@ -39,7 +39,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Program">
+  <component name="RunManager" selected="Python.program">
     <configuration name="Physics" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="2019-Game-IA" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -125,15 +125,15 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.Physics" />
-      <item itemvalue="Python.Program" />
       <item itemvalue="Python.Unnamed" />
+      <item itemvalue="Python.Program" />
+      <item itemvalue="Python.Physics" />
       <item itemvalue="Python.program" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Program" />
         <item itemvalue="Python.program" />
+        <item itemvalue="Python.Program" />
         <item itemvalue="Python.Physics" />
       </list>
     </recent_temporary>
