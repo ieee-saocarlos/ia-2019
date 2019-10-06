@@ -1,0 +1,14 @@
+- Quando comentar, adicionar um espaço entre o '#' e o início do comment.
+- Entre os "imports" e o corpo do programa é recomendado pular duas linhas. Entre duas funções e classes também.
+- Nomes de funções e variáveis devem ser escritas apenas com minúsculas e as palavras separada por '_' para facilitar a
+  leitura.
+  Evitar: atMola
+  Usar: at_mola
+- Entre operadores se usa espaço, por exemplo x = 1 + 1. No entanto, para keywords e parâmetros não se usa:
+  Evitar: window = pyglet.window.Window(game.windowWidth, game.windowHeight, vsync = False)
+  Usar: window = pyglet.window.Window(game.windowWidth, game.windowHeight, vsync=False) 
+- Evitar importar bibliotecas que não serão utilizadas
+- Comentarios na mesma linha devem ser separados com no mínimo dois espaços
+- Ao iniciar variáveis de métodos as vírgulas devem ter espaço à direita. 
+  Errado: self.circulo = pymunk.Circle(self.circulo_body,r)
+  Correto: self.circulo = pymunk.Circle(self.circulo_body, r)

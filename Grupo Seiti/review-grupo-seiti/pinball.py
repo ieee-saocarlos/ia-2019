@@ -5,16 +5,16 @@ import pymunk
 import pymunk.pyglet_util
 import game
 
-#Instanciando a classe game e janela
+# Instanciando a classe game e janela
 game = game.Game()
 
-window = pyglet.window.Window(game.windowWidth, game.windowHeight, vsync = False)
+window = pyglet.window.Window(game.windowWidth, game.windowHeight, vsync=False)
 
-#iniciando o clock para atualizar a tela
+# iniciando o clock para atualizar a tela
 pyglet.clock.schedule_interval(game.update, game.TIME_INTERVAL)
 
 
-#funcão para escrever na tela
+# funcão para escrever na tela
 @window.event
 def on_draw():
     window.clear()
@@ -24,10 +24,11 @@ def on_draw():
 
     game.draw()
 
-    #exibindo na tela os elementos da fisica (pymunk)
+    # exibindo na tela os elementos da fisica (pymunk)
     game.space.debug_draw(pymunk.pyglet_util.DrawOptions())
 
-#funcao para detectar teclas pressionadas
+
+# funcao para detectar teclas pressionadas
 @window.event
 def on_key_press(symbol, modifiers):
     if symbol == key.LEFT:
@@ -43,6 +44,7 @@ def on_key_press(symbol, modifiers):
         if symbol == key.ENTER:
             game.reset()
 
+
 @window.event
 def on_key_release(symbol, modifiers):
     if symbol == key.LEFT:
@@ -55,5 +57,5 @@ def on_key_release(symbol, modifiers):
         game.molaS = 'GO'
 
 
-#iniciando a aplicacão
+# iniciando a aplicacão
 pyglet.app.run()

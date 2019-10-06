@@ -1,9 +1,9 @@
-#Arquivo para definir funcoes uteis
+# Arquivo para definir funcoes uteis
 
 
 class Functions:
 
-    #alterando a ancoragem das imagens
+    # alterando a ancoragem das imagens
     @staticmethod
     def ancorar(image, pos):
         if pos == 'dir':
