@@ -1,0 +1,21 @@
+- não consigo jogar o jogo pq minha tela tem menos de 900 pixels de altura
+- Ao iniciar variáveis de métodos as vírgulas devem ter espaço à direita. 
+  Errado: self,esquerda,direita
+  Correto: self, esquerda, direita
+- Parêntesis no return fica redundante
+- Entre os "imports" e o corpo do programa é recomendado pular duas linhas. Entre funções e classes também.
+- Operadores deves ser separados por espaço. Não é x=1+1 e sim x = 1 + 1.
+- Não colocar espaço entre o nome da função e as variáveis de entrada
+  Evitar: def p_ang (xi, yi, xf, yf):
+  Usar: def p_ang(xi, yi, xf, yf):
+- Quando comentar, adicionar um espaço entre o '#' e o início do comment.
+- É recomendado que a linha tenha no máximo 120 caracteres, é possível continuar na proxima linha adicionando parêntesis 
+  na primera linha e fechando no final 
+- 'self.bola_voando == False:' é a mesma coisa que 'not self.bola_voando:'
+- 'if bola.parada == True:' é a mesma coisa que 'if bola.parada:'
+- Se vc escreve 'from math import atan, pi, sin, cos, fabs' n precisa escrever math.atan quando chamar. Apenas atan.
+
+
+No mais o jogo está ficando muito bom! Continuem com o bom trabalho!
+
+PEP 08: https://www.python.org/dev/peps/pep-0008/
