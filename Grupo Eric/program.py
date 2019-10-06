@@ -1,8 +1,8 @@
 import pygame
 import sys
-import objects
 from ball import Ball
 from plat import Plat
+from wall import Wall
 
 # Colors
 white = (255, 255, 255)
@@ -27,7 +27,8 @@ main_ball = Ball(size=[10, 10], speed=3, pos=[w / 2, h / 2 + 100])
 # main plat initial state
 main_plat = Plat(pos=[w / 2 - 50, h - 25], speed=5, mov=0)
 
-wall = []
+# initialize wall
+wall = Wall(bricks=[])
 
 points = 0
 level = 0
@@ -47,22 +48,20 @@ def image(window, image_name, x, y):
 while True:
     screen.fill(black)
 
-    if not wall:
+    if not wall.bricks:
         level += 1
-        # Coordenadas dos tijolos
-        wall = []
         for column in range(14):
             for row in range(9):
                 if row is not 0:
-                    wall.append([w / 2 - 25 + row * 55, h / 2 - column * 20])
-                wall.append([w / 2 - 25 - row * 55, h / 2 - column * 20])
+                    wall.bricks.append([w / 2 - 25 + row * 55, h / 2 - column * 20])
+                wall.bricks.append([w / 2 - 25 - row * 55, h / 2 - column * 20])
 
     main_ball.mov(screen_size)
 
     if not (main_plat.pos[0] < 0 and main_plat.mov < 0) and not (main_plat.pos[0] > w - 100 and main_plat.mov > 0):
         main_plat.pos[0] += main_plat.mov
 
-    ric = objects.plat(main_ball.pos[0], main_ball.pos[1], purple, screen, main_plat.pos, main_ball.size, main_ball.vel)
+    ric = main_plat.collision(purple, screen, main_ball.pos, main_ball.size, main_ball.vel)
     if ric is not None:
         main_ball.vel[0] = ric[1]
         if ric == 'x':
@@ -70,18 +69,17 @@ while True:
         else:
             main_ball.vel[1] *= -1
 
-
-    col = objects.bricks(main_ball.pos[0], main_ball.pos[1], red, screen, wall, main_ball.size, main_ball.vel)
+    col = wall.brick(red, screen, main_ball.pos, main_ball.size, main_ball.vel)
     if col is not None:
         points += 1
         # Apaga o tijolo em que a bola colidiu
-        wall.pop(col[0])
+        wall.bricks.pop(col[0])
         if col[1] == 'x':
             main_ball.vel[0] *= -1
         else:
             main_ball.vel[1] *= -1
 
-    objects.bricks(main_ball.pos[0], main_ball.pos[1], red, screen, wall, main_ball.size, main_ball.vel)
+    col = wall.brick(red, screen, main_ball.pos, main_ball.size, main_ball.vel)
 
     # draw the ball
     pygame.draw.rect(screen, white, [main_ball.pos[0], main_ball.pos[1], main_ball.size[0], main_ball.size[1]])
