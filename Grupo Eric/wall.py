@@ -36,3 +36,10 @@ class Wall:
             if r is not None:
                 return i, r
             i += 1
+
+    def gen_wall(self, screen_size):
+        for column in range(14):
+            for row in range(9):
+                if row is not 0:
+                    self.bricks.append([screen_size[0] / 2 - 25 + row * 55, screen_size[1] / 2 - column * 20])
+                self.bricks.append([screen_size[0] / 2 - 25 - row * 55, screen_size[1] / 2 - column * 20])

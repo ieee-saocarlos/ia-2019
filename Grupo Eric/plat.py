@@ -7,13 +7,13 @@ class Plat:
         self.pos = pos
         self.mov = mov
 
-    def collision(self, purple, screen, b_p, b_s, b_v):
+    def collision(self, color, screen, b_p, b_s, b_v):
         i = 0
         vertexes = [[b_p[0], b_p[1]],
                     [b_p[0] + b_s[0], b_p[1]],
                     [b_p[1], b_p[1] + b_s[1]],
                     [b_p[0] + b_s[0], b_p[1] + b_s[1]]]
-        pygame.draw.rect(screen, purple, [self.pos[0], self.pos[1], 100, 15])
+        pygame.draw.rect(screen, color, [self.pos[0], self.pos[1], 100, 15])
         past_vert = [0, 0]
 
         for vert in vertexes:
@@ -35,3 +35,7 @@ class Plat:
                     else:
                         return 'y', acc
         i += 1
+
+    def move(self, screen_size):
+        if not (self.pos[0] < 0 and self.mov < 0) and not (self.pos[0] > screen_size[0] - 100 and self.mov > 0):
+            self.pos[0] += self.mov
