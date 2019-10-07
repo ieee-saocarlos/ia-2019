@@ -5,7 +5,6 @@ black = (0, 0, 0)
 white = (255, 255, 255)
 
 
-
 def text(string, size):
     font = pygame.font.SysFont("arial", size)
     label = font.render(string, True, white)
@@ -17,7 +16,7 @@ def image(window, image_name, x, y):
     window.blit(image_v, (x, y))
 
 
-def menu_loop():
+def over_loop():
     pygame.init()
     clock = pygame.time.Clock()
     screen_size = w, h = 1000, 600
@@ -26,8 +25,7 @@ def menu_loop():
 
     while 1:
         screen.fill(black)
-        screen.blit(text('BREAKOUT', 50), [w/2 - 150, h/2 - 50])
-        screen.blit(text("aperte 's' para começar", 20), [w/2 - 115, h/2 + 25])
+        screen.blit(text('GAME OVER', 50), [w/2 - 150, h/2 - 50])
         screen.blit(text("aperte 'r' para recomeçar o jogo", 20), [w/2 - 115, h / 2 + 45])
         screen.blit(text("aperte 'x' para sair", 20), [w/2 - 115, h / 2 + 65])
 
@@ -37,8 +35,8 @@ def menu_loop():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_x:
                     sys.exit()
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_r:
                     return 'game'
 
-        clock.tick(30)
+        clock.tick(60)
         pygame.display.update()

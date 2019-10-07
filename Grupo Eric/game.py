@@ -32,6 +32,7 @@ def game_loop():
     screen_size = w, h = 1000, 600
     screen = pygame.display.set_mode(screen_size)
     pygame.display.set_caption('NPC Breakout')
+    option = 'game'
 
     # main ball initial state
     main_ball = Ball(size=[10, 10], speed=3, pos=[w / 2, h / 2 + 100])
@@ -46,14 +47,14 @@ def game_loop():
     points = 0
     level = 0
 
-    while True:
+    while option is not 'game_over':
         screen.fill(black)
 
         if not wall.bricks:
             level += 1
             wall.gen_wall(screen_size)
 
-        main_ball.move(screen_size, screen, white, main_ball.pos, main_ball.size)
+        option = main_ball.move(screen_size, screen, white, main_ball.pos, main_ball.size)
         main_plat.move(screen_size)
 
         ric = main_plat.collision(purple, screen, main_ball.pos, main_ball.size, main_ball.vel)
@@ -74,7 +75,7 @@ def game_loop():
             else:
                 main_ball.vel[1] *= -1
 
-        col = wall.brick(red, screen, main_ball.pos, main_ball.size, main_ball.vel)
+        wall.brick(red, screen, main_ball.pos, main_ball.size, main_ball.vel)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -85,7 +86,10 @@ def game_loop():
                     main_plat.mov = -main_plat.speed
                 if event.key == pygame.K_RIGHT:
                     main_plat.mov = main_plat.speed
-
+                if event.key == pygame.K_r:
+                    return 'game'
+                if event.key == pygame.K_x:
+                    sys.exit()
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                     main_plat.mov = 0
@@ -95,3 +99,4 @@ def game_loop():
 
         clock.tick(60)
         pygame.display.update()
+    return 'game_over'

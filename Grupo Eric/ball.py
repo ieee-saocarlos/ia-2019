@@ -18,5 +18,7 @@ class Ball:
             self.vel[1] = self.vel[1] * -1
         elif self.pos[1] > screen_size[1] - self.size[1]:
             self.vel = [0, 0]
+            pygame.draw.rect(screen, color, [ball_pos[0], ball_pos[1], ball_size[0], ball_size[1]])
+            return 'game_over'
 
         pygame.draw.rect(screen, color, [ball_pos[0], ball_pos[1], ball_size[0], ball_size[1]])
