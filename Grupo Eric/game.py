@@ -27,6 +27,7 @@ def image(window, image_name, x, y):
 
 def game_loop():
     # initialize
+    status = 'level_start'
     pygame.init()
     clock = pygame.time.Clock()
     screen_size = w, h = 1000, 600
@@ -52,9 +53,10 @@ def game_loop():
 
         if not wall.bricks:
             level += 1
-            wall.gen_wall(screen_size)
+            wall.gen_wall(screen_size, level)
+            status = 'level_start'
 
-        option = main_ball.move(screen_size, screen, white, main_ball.pos, main_ball.size)
+        option = main_ball.move(screen_size, screen, white, main_ball.pos, main_ball.size, status, main_plat.pos)
         main_plat.move(screen_size)
 
         ric = main_plat.collision(purple, screen, main_ball.pos, main_ball.size, main_ball.vel)
@@ -90,6 +92,8 @@ def game_loop():
                     return 'game'
                 if event.key == pygame.K_x:
                     sys.exit()
+                if event.key == pygame.K_SPACE:
+                    status = 0
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                     main_plat.mov = 0

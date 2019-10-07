@@ -8,11 +8,13 @@ class Ball:
         self.pos = pos
         self.vel = [0, speed]
 
-    def move(self, screen_size, screen, color, ball_pos, ball_size):
+    def move(self, screen_size, screen, color, ball_pos, ball_size, status, plat_pos):
         self.pos[0] = self.pos[0] + self.vel[0]
         self.pos[1] = self.pos[1] + self.vel[1]
 
-        if self.pos[0] < 0 or self.pos[0] > screen_size[0] - self.size[0]:
+        if status == 'level_start':
+            self.pos = [plat_pos[0] + 50 - self.size[0]/2, plat_pos[1] - 1.5*self.size[1]]
+        elif self.pos[0] < 0 or self.pos[0] > screen_size[0] - self.size[0]:
             self.vel[0] = self.vel[0] * -1
         elif self.pos[1] < 0:
             self.vel[1] = self.vel[1] * -1

@@ -5,7 +5,6 @@ black = (0, 0, 0)
 white = (255, 255, 255)
 
 
-
 def text(string, size):
     font = pygame.font.SysFont("arial", size)
     label = font.render(string, True, white)
