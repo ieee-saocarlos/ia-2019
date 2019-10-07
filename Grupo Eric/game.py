@@ -59,6 +59,7 @@ def game_loop():
         option = main_ball.move(screen_size, screen, white, main_ball.pos, main_ball.size, status, main_plat.pos)
         main_plat.move(screen_size)
 
+        # colisao com a plataforma
         ric = main_plat.collision(purple, screen, main_ball.pos, main_ball.size, main_ball.vel)
         if ric is not None:
             main_ball.vel[0] = ric[1]
@@ -67,17 +68,18 @@ def game_loop():
             else:
                 main_ball.vel[1] *= -1
 
+        # colisao com o tijolo
         col = wall.brick(red, screen, main_ball.pos, main_ball.size, main_ball.vel)
         if col is not None:
             points += 1
             # Apaga o tijolo em que a bola colidiu
             wall.bricks.pop(col[0])
+            # para redesenhar apos apagar o tijolo
+            wall.brick(red, screen, main_ball.pos, main_ball.size, main_ball.vel)
             if col[1] == 'x':
                 main_ball.vel[0] *= -1
             else:
                 main_ball.vel[1] *= -1
-
-        wall.brick(red, screen, main_ball.pos, main_ball.size, main_ball.vel)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
