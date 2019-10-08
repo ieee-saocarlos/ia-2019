@@ -10,6 +10,7 @@ class Objeto:
         self.vely = 0
         self.parada = False
         self.tocando = []
+        self.inicial = False
 
         #self.gene = []
         #if gene != None:
