@@ -62,6 +62,8 @@ class Tela(pyglet.window.Window):
 
         self.colocar_bolas()
 
+
+
 ###########################################################################
 
     def on_key_press(self, symbol, modifiers):
@@ -96,7 +98,7 @@ class Tela(pyglet.window.Window):
 ###########################################################################
 
     def colocar_bolas(self):
-        for y in range(8):
+        for y in range(5):
             for x in range(15):
                 if (y + 1) % 2 == 0:
                     if x == 0:
@@ -123,6 +125,16 @@ class Tela(pyglet.window.Window):
         for bola in self.bolas:
             self.ver_conectados(bola)
 
+  #  def nova_linha(self):
+       #
+       # if self.contagem_bola==3:
+       #     self.contagem=0
+         #   for y in range(14):
+           #   self.imagem_bola.anchor_x = self.imagem_bola.width // 2
+           #   self.imagem_bola.anchor_y = self.imagem_bola.height // 2 + 2
+
+
+
     def jogar_bola(self, x, y):
         if x != 450:
             tan = (y - 10) / (x - 450)
@@ -141,6 +153,7 @@ class Tela(pyglet.window.Window):
 
         self.prev = True
         self.bola_voando = True
+        self.contagem_bola=self.contagem_bola + 1
 
     def ver_conectados(self, bola):
         raio = 65 ** 2
