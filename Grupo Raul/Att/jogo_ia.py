@@ -22,6 +22,10 @@ class Tela(pyglet.window.Window):
                       r'imagens\bola_amarela.png',
                       r'imagens\bola_verde.png',
                       r'imagens\bola_azul.png']
+       # if self.pont >=5000:
+          #  self.cores.append(r'imagens\bola_Raul.png')
+     #   if self.pont >=10000:
+        #    self.cores.append(r'imagens\bola_Raul.png')
 
         self.iniciar()
 
@@ -194,6 +198,7 @@ class Tela(pyglet.window.Window):
                     if self.numero >= 3:
                         for bolinha in self.verificados:
                             self.bolas.remove(bolinha)
+                            self.pont = self.pont + 10 * self.numero
                         self.explodiu = True
                     if not self.explodiu:
                         self.erros += 1
@@ -329,7 +334,11 @@ class Tela(pyglet.window.Window):
                 self.numero += 1
                 self.verificados.append(bola1)
                 self.verificar_iguais(bola1)
-
+   # def novos_niveis(self):
+      #  if self.pont >= 5000:
+        #    self.cores.append(r'imagens\bola_Raul.png')
+       # if self.pont >= 10000:
+        #    self.cores.append(r'imagens\bola_Aleixo.png')
 ############################################################################
 
     def on_draw(self):
@@ -352,6 +361,12 @@ class Tela(pyglet.window.Window):
             self.adicionar_linha()
             self.erros = 0
         self.update_bolas(dt)
+        self.label_pontuacao = pyglet.text.Label('Pontuação : ' + str(self.pont),
+                                                 x=20, y=20, font_size=15,
+                                                 color=(255, 255, 255, 255),
+                                                 bold=True)
+
+      #  self.novos_niveis()
 
 
 if __name__ == "__main__":
