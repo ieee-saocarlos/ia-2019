@@ -36,7 +36,7 @@ def game_loop():
     option = 'game'
 
     # main ball initial state
-    main_ball = Ball(size=[10, 10], speed=3, pos=[w / 2, h / 2 + 100])
+    main_ball = Ball(size=[10, 10], speed=5, pos=[w / 2, h / 2 + 100])
 
     # main plat initial state
     main_plat = Plat(pos=[w / 2 - 50, h - 25], speed=5, mov=0)

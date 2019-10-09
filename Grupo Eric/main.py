@@ -1,6 +1,7 @@
 import game
 import menu
 import over
+import instruction
 
 
 def main():
@@ -9,9 +10,11 @@ def main():
     while option is not 'exit':
         if option == 'main_menu':
             option = menu.menu_loop()
-        if option == 'game':
+        elif option == 'game':
             option = game.game_loop()
-        if option == 'game_over':
+        elif option == 'instruction':
+            option = instruction.instruction_loop()
+        else:
             option = over.over_loop()
 
 
