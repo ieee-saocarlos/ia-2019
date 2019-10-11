@@ -1,5 +1,7 @@
 import pyglet
+from pyglet.window import key
 import random
+import glob
 from objeto import Objeto
 from random import choice
 from math import atan, pi, sin, cos , fabs
@@ -22,10 +24,13 @@ class Tela(pyglet.window.Window):
                       r'imagens\bola_amarela.png',
                       r'imagens\bola_verde.png',
                       r'imagens\bola_azul.png']
-       # if self.pont >=5000:
-          #  self.cores.append(r'imagens\bola_Raul.png')
-     #   if self.pont >=10000:
-        #    self.cores.append(r'imagens\bola_Raul.png')
+        music=pyglet.resource.media(r'Musica\Ben10.wav')
+        music.play()
+
+      #  if self.pont >=5000:
+      #      self.cores.append(r'imagens\bola_Branca.png')
+      #  if self.pont >=10000:
+      #      self.cores.append(r'imagens\bola_Raul.png')
 
         self.iniciar()
 
@@ -353,7 +358,6 @@ class Tela(pyglet.window.Window):
             for bola in self.bolas:
                 bola.draw()
             self.label_pontuacao.draw()
-
     def update(self, dt):
         if self.prev and self.bola_voando == False:
             self.previa()
@@ -365,7 +369,6 @@ class Tela(pyglet.window.Window):
                                                  x=20, y=20, font_size=15,
                                                  color=(255, 255, 255, 255),
                                                  bold=True)
-
       #  self.novos_niveis()
 
 
