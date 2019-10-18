@@ -7,6 +7,7 @@ import instruction
 def main():
     option = 'main_menu'
 
+    # Game screens
     while option is not 'exit':
         if option == 'main_menu':
             option = menu.menu_loop()
@@ -14,7 +15,7 @@ def main():
             option = game.game_loop()
         elif option == 'instruction':
             option = instruction.instruction_loop()
-        else:
+        else:  # game over
             option = over.over_loop()
 
 
