@@ -26,11 +26,11 @@ def menu_loop():
     select = 0
 
     while 1:
-        image(screen, 'main-menu.png', 0, 0)
+        image(screen, 'background/main-menu.png', 0, 0)
         if select == 0:
-            pygame.draw.rect(screen, black, [w / 2 - 200, h / 2 + 100, 30, 15])
+            pygame.draw.rect(screen, white, [w / 2 - 250, h / 2 + 50, 30, 15])
         else:
-            pygame.draw.rect(screen, black, [w / 2 - 200, h / 2 + 200, 30, 15])
+            pygame.draw.rect(screen, white, [w / 2 - 250, h / 2 + 170, 30, 15])
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

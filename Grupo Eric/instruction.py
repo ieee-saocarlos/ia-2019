@@ -25,9 +25,7 @@ def instruction_loop():
     pygame.display.set_caption('NPC Breakout')
 
     while 1:
-
-        screen.fill(black)
-        screen.blit(text('INSTRUÇÕES', 50), [w / 2 - 150, h / 2 - 50])
+        image(screen, 'background/instructions.png', 0, 0)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

@@ -126,4 +126,4 @@ def game_loop():
 
         clock.tick(60)
         pygame.display.update()
-    return 'game_over'
+    return 'game_over', str(points)

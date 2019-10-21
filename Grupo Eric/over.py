@@ -6,8 +6,13 @@ white = (255, 255, 255)
 
 
 def text(string, size):
-    font = pygame.font.SysFont("arial", size)
+    font = pygame.font.SysFont("comicsansMS", size)
     label = font.render(string, True, white)
+    return label
+
+def text_shadow(string, size):
+    font = pygame.font.SysFont("comicsansMS", size)
+    label = font.render(string, True, (8, 2, 19))
     return label
 
 
@@ -16,7 +21,7 @@ def image(window, image_name, x, y):
     window.blit(image_v, (x, y))
 
 
-def over_loop():
+def over_loop(points):
     pygame.init()
     clock = pygame.time.Clock()
     screen_size = w, h = 1000, 600
@@ -24,10 +29,9 @@ def over_loop():
     pygame.display.set_caption('NPC Breakout')
 
     while 1:
-        screen.fill(black)
-        screen.blit(text('GAME OVER', 50), [w/2 - 150, h/2 - 50])
-        screen.blit(text("aperte 'r' para recomeçar o jogo", 20), [w/2 - 115, h / 2 + 45])
-        screen.blit(text("aperte 'x' para sair", 20), [w/2 - 115, h / 2 + 65])
+        image(screen, 'background/game-over.png', 0, 0)
+        screen.blit(text_shadow(points, 50), [w / 2 + 45, h / 2 - 55])
+        screen.blit(text(points, 50), [w/2 + 40, h/2 - 65])
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -37,6 +41,8 @@ def over_loop():
                     sys.exit()
                 if event.key == pygame.K_r:
                     return 'game'
+                if event.key == pygame.K_m:
+                    return 'main_menu'
 
         clock.tick(60)
         pygame.display.update()

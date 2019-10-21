@@ -16,7 +16,7 @@ def main():
         elif option == 'instruction':
             option = instruction.instruction_loop()
         else:  # game over
-            option = over.over_loop()
+            option = over.over_loop(option[1])
 
 
 if __name__ == "__main__":
