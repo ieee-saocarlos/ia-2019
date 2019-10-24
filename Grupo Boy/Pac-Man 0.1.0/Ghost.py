@@ -1,8 +1,8 @@
 import pygame
 import math
-from pacMan import player
+import player
 
-class Ghost(object):
+class Ghost:
     def __init__(self, x, y, cor, pac):
         self.coord = {          # dicionário indicando coordenadas
             "x": x,
@@ -19,22 +19,18 @@ class Ghost(object):
             "chase": False,
             "scatter": False,
             "eaten": False,
-            "frightened": False,
+            "frightened": False
         }
         #self.estadoAtual = []   # lista vazia na inicialização
         self.jogador = {         # posição do jogador como entrada
             "x": pac.x,
-            "y": pac.y,
-            "up": pac.up,
-            "down": pac.down,
-            "left": pac.left,
-            "right": pac.right,
+            "y": pac.y
         }
         self.direcao = {      # dicionário indicando a direção
             "up": False,
             "down": False,
             "left": False,
-            "right": False,
+            "right": False
         }
         self.proximaDirecao = {
             "up": False,
@@ -44,6 +40,7 @@ class Ghost(object):
         }
 
     def move(self):
+        #analise de movimentacao
         if self.direcao.get("up"):
             self.velocXY["y"] = -self.veloc
             self.proximaDirecao["down"] = False
@@ -56,7 +53,7 @@ class Ghost(object):
         elif self.direcao.get("right"):
             self.velocXY["x"] = self.veloc
             self.proximaDirecao["left"] = False
-
+        #movimentacao
         self.coord["x"] += self.velocXY.get("x")
         self.coord["y"] += self.velocXY.get("y")
 

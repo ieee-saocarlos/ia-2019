@@ -1,6 +1,5 @@
 import pygame
-import math
-
+from player import Player
 def texto(nome_font, display, tamanho=100, msg='olá!', ant=True, cor=(100, 100, 100), pos=[100, 100]):
     font = pygame.font.SysFont(nome_font, tamanho)
     text = font.render(msg, ant, cor)

@@ -1,3 +1,5 @@
+import math
+import pygame
 # Pensado para um player no formato de um círculo
 class Player(object):
     def __init__(self, x, y, cor):
