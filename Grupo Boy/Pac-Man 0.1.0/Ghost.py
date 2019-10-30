@@ -3,7 +3,7 @@ import math
 import player
 
 class Ghost:
-    def __init__(self, x, y, cor, pac):
+    def __init__(self, x, y, cor, pac, mapa):
         self.coord = {          # dicionário indicando coordenadas
             "x": x,
             "y": y,
@@ -15,7 +15,7 @@ class Ghost:
         self.veloc = 2          # velocidade
         self.tamanho = 23       # tamanho em pixels
         self.cor = cor
-        self.estado = {        # identificar cada estado do fantasma
+        self.estado = {         # identificar cada estado do fantasma
             "chase": False,
             "scatter": False,
             "eaten": False,
@@ -56,10 +56,14 @@ class Ghost:
         #movimentacao
         self.coord["x"] += self.velocXY.get("x")
         self.coord["y"] += self.velocXY.get("y")
-
+        
+    def draw(self, display, cor):
+        pygame.draw.rect(display, self.cor, [self.x, self.y, self.tamanho, self.tamanho], 0)
 
 """ SUBCLASSES """
 class Blinky(Ghost):        # vermelho
+    def distancia_alvo(self):
+
     def procurarAlvo(self):
         if self.estado["chase"]:
             self.alvo = {"x": self.jogador["x"], "y": self.jogador["y"]}

@@ -91,6 +91,7 @@ largura = 224 * 3
 altura = 288 * 3
 sair = True
 amarelo = (150, 150, 0)
+vermelho = (255, 0, 0)
 fps = 60
 count = 0
 esquerda = 0
@@ -109,6 +110,7 @@ font = pygame.font.SysFont(None, 25)
 
 # Instance da classe player - Pacman
 pac = Player(int(224 * 3 / 2), 20 * 24, amarelo)
+blinky = Ghost(int(224 * 3 / 2), 20 * 24, vermelho)
 
 while sair:
     # ANALISE DAS ENTRADAS DE EVENTOS
